@@ -17,7 +17,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  bool loading = true;
+  bool _loading = true;
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _HomeViewState extends State<HomeView> {
       (_) async {
         await Provider.of<HomeVM>(context, listen: false).getUsers();
         setState(() {
-          loading = false;
+          _loading = false;
         });
       },
     );
@@ -50,7 +50,7 @@ class _HomeViewState extends State<HomeView> {
 
             ///Елси локальный список юзеров пустой и идеть загрузка, отображаеться виджет загрузка
             ///т.к для пользователья будеть понятно что сейчас происходит
-            return list.isEmpty && loading
+            return list.isEmpty && _loading
                 ? const LoaderWidget()
                 : RefreshIndicator(
                     onRefresh: () => vm.getUsers().then((value) => setState(() {})),
@@ -92,7 +92,7 @@ class _HomeViewState extends State<HomeView> {
                               itemCount: list.length,
                             ),
                           )
-                        : loading
+                        : _loading
                             ? const LoaderWidget()
 
                             ///а если пустой и загрузка прошла, тогда тут сообщим об это

@@ -4,6 +4,8 @@ import 'package:test_flutter_app/core/helpers/date_helper.dart';
 import 'package:test_flutter_app/core/models/entities/user.dart';
 import 'package:test_flutter_app/generated/l10n.dart';
 
+import 'cached_image.dart';
+
 ///Виджет для отображение данный юзера
 class UsetItem extends StatelessWidget {
   final User? user;
@@ -13,11 +15,11 @@ class UsetItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      // leading: SizedBox(
-      //   child: CachedImage(user!.avatar ?? ''),
-      //   height: 50,
-      //   width: 50,
-      // ),
+      leading: SizedBox(
+        child: CachedImage(user!.avatar ?? ''),
+        height: 50,
+        width: 50,
+      ),
       title: Text(
         user!.name ?? '',
         style: AppTheme.mainTS.copyWith(fontSize: AppTheme.appTitleFontSize),

@@ -18,8 +18,9 @@ class HomeRepo extends BaseRepo {
     final String url = urlV1Part('/user?' + ('page=${update ? 1 : page}&limit=$limit'));
     print(url);
 
-    ///Если нет интернет, тогда все ОК, верну список из локлный БД
+    ///Если нет интернет, тогда все ОК, верну пустой список
     if (!conn) {
+      return <User>[];
       final List list = await HiveService.getOfflineListBox(BoxNameStore.user);
       return list.cast<User>();
     }
