@@ -1,16 +1,20 @@
-# test_flutter_app
+## Тестовый проект для HomeCredit Bank
 
-A new Flutter application.
 
-## Getting Started
+### Что бы запустить этот проект
 
-This project is a starting point for a Flutter application.
+>1. Вам нужно клонировать этот проект на свой компьютер
 
-A few resources to get you started if this is your first Flutter project:
+>2. Откройте проект и запустите следующие команды
+```
+flutter pub get
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+```
+flutter run
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+#### Вуаля, у вас проект запустился
+
+*Примечание:
+*Ваш Flutter SDK должен быть версии stable*
