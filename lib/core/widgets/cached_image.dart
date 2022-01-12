@@ -4,6 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'loader.dart';
 
+///Кэшируеть изоброжение из интернета,
+///и во второй раз не будеть отправит занова запрос
+/// если это изобрежиние до этого был открыть.
+/// Если какой то ошибка по запросу, тогда в дизайн не слометь, просто оторозить иконка по ошибка
 class CachedImage extends StatelessWidget {
   final String url;
   final double? height;

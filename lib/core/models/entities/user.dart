@@ -1,7 +1,14 @@
 import 'dart:convert';
 
-import 'base_entity.dart';
+import 'package:hive/hive.dart';
 
+import 'base_entity.dart';
+part 'user.g.dart';
+
+///Что ты работать и сохранить с этой объектой локально сделал и храню в HiveNoSql
+///Специально тестовый RESTApi создал для тестового проекта
+///UserAdapter его генерированный класс который поможет работат с Hive
+@HiveType(typeId: 1)
 class User extends BaseEntity {
   User({
     this.createdAt,
@@ -14,15 +21,21 @@ class User extends BaseEntity {
   }) : super(createdAt: createdAt, deletedAt: deletedAt, isActive: isActive, id: id);
 
   @override
+  @HiveField(1)
   DateTime? createdAt;
+  @HiveField(2)
   String? name;
+  @HiveField(3)
   String? avatar;
   @override
+  @HiveField(4)
   DateTime? deletedAt;
   @override
+  @HiveField(5)
   bool? isActive;
   String? img;
   @override
+  @HiveField(6)
   String? id;
 
   factory User.fromJson(String str) => User.fromMap(json.decode(str));

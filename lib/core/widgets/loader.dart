@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_flutter_app/core/constants/styles.dart';
 
+///Helper для лоадер по тип Device
 class LoaderWidget extends StatelessWidget {
   final bool isPop;
 

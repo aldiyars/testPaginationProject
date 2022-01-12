@@ -1,4 +1,5 @@
 
+///EndPoint-ы и т.д
 class System {
 
   static const String BASE_URL = "$MAIN_URL/api";

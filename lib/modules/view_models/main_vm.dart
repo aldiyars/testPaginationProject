@@ -1,52 +1,75 @@
 import 'package:flutter/material.dart';
 import 'package:test_flutter_app/core/models/entities/user.dart';
 import 'package:test_flutter_app/core/repos/home_repo.dart';
-import 'package:test_flutter_app/modules/view_models/base_vm.dart';
 
+///ViewModel для главного экрана, все глабалные переменные храниться здесь после hive до закрытие главного экрана
 class HomeVM extends ChangeNotifier {
   final HomeRepo? _homeRepo;
 
   HomeVM(this._homeRepo);
 
-  int _pageNumber = 1;
+  ///Количество одном страница в пагинация
   final int _limit = 20;
   List<User>? _userList;
+
+  ///Загрузка идет по пагинация ли нет
   bool _isLoadingProgress = false;
+
+  ///Последный страница по пагинация ли нет
   bool _isLastPage = false;
 
+  ///номер страница по пагинция
+  int _pageNumber = 1;
+
+  ///Getters
   int get getPageNumber => _pageNumber;
 
   bool get loadingProgress => _isLoadingProgress;
 
   List<User>? get users => _userList;
 
+  ///Setters
   set pageNumber(int val) {
     _pageNumber = val;
     notifyListeners();
   }
 
-  void deleteUserFromList(int id) {
+  ///Удаление по id из лист и удаление объект из Hive
+  Future<void> deleteUserFromLocal(int id, User user) async {
     _userList!.removeAt(id);
+    await user.delete();
     notifyListeners();
   }
 
-  Future getUsers(BuildContext context, [bool update = false]) async {
-    if (users == null || update) {
-      _userList = await _homeRepo!.getUsers(page: _pageNumber, update: update, limit: _limit);
-      _pageNumber = 1;
-      _isLastPage = false;
-      notifyListeners();
-    }
+  ///Получение список Юзеров
+  Future getUsers() async {
+    _userList = await _fetchDate(true);
+    _pageNumber = 1;
+    _isLastPage = false;
+    notifyListeners();
   }
 
-  Future loadMore(bool lasItem) async {
-    if (!lasItem || _isLoadingProgress || _isLastPage) return;
+  ///Пагинация, работаеть когда скрол в конце список.
+  Future loadMore(bool isLastItem) async {
+    if (!isLastItem || _isLoadingProgress || _isLastPage) return;
     _isLoadingProgress = true;
-    List<User>? list = await _homeRepo!.getUsers(page: _pageNumber + 1, update: false, limit: _limit);
-    _isLastPage = list!.length < _limit;
-    _userList!.addAll(list);
+    List<User>? result = await _fetchDate(false);
+
+    ///провер
+    _isLastPage = result!.length < _limit;
+    _userList!.addAll(result);
     _pageNumber++;
     _isLoadingProgress = false;
     notifyListeners();
+  }
+
+  ///Загрузка данный из сервер и синхронизация с Hive
+  Future<List<User>?> _fetchDate(bool update) async {
+    try {
+      List<User>? response = await _homeRepo!.getUsers(page: _pageNumber + 1, update: true, limit: _limit);
+      return response;
+    } catch (e) {
+      _isLoadingProgress = false;
+    }
   }
 }

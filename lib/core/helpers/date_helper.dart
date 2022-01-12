@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 
+///Helper для отабражение даты и т.д
 class DateHelper {
   static DateFormat dateFormatFull = DateFormat('dd MMMM yyyy, HH:mm', 'kk');
   static DateFormat dateFormatFullNumeric = DateFormat('dd.MM.yyyy HH:mm');

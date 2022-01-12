@@ -4,6 +4,7 @@ import 'package:test_flutter_app/core/helpers/date_helper.dart';
 import 'package:test_flutter_app/core/models/entities/user.dart';
 import 'package:test_flutter_app/generated/l10n.dart';
 
+///Виджет для отображение данный юзера
 class UsetItem extends StatelessWidget {
   final User? user;
 

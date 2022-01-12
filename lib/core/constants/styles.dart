@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+///Статичекий Tема, стили, цветы, размеры
 class AppTheme {
   static var mainTS = GoogleFonts.rubik().copyWith(color: kDarkBlackColor, fontSize: appDefaultFontSize);
 

@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 import 'api_exception.dart';
 
+///Подготовленный методы для отправка POST, GET, PUT, DELETE запроса
 class ApiProvider {
   Future<Map<String, dynamic>> post(String url, dynamic body) async {
     print(url + ' ' + body.toString());
@@ -54,7 +55,6 @@ class ApiProvider {
     dynamic responseJson;
     try {
       final dynamic response = await http.get(Uri.parse(url + query));
-      // responseJson = await _response(response);
       responseJson = await _response(response);
     } on SocketException {
       throw ApiException(ApiExceptionType.NETWORK);
@@ -96,10 +96,9 @@ class ApiProvider {
       resp = response.body.toString();
       responseJson = json.decode(resp);
     } else if (response is http.StreamedResponse) {
-      // print(response.stream.toString());
       responseJson = json.decode(await response.stream.bytesToString());
     } else {
-      throw new UnsupportedError("Response type is unsupported");
+      throw UnsupportedError("Response type is unsupported");
     }
 
     switch (response.statusCode) {
@@ -110,10 +109,8 @@ class ApiProvider {
       case 422:
         throw ApiException(ApiExceptionType.INVALIDDATA);
       case 401:
-        // await SharedPreferencesHelper.removeAll();
         throw ApiException(ApiExceptionType.UNAUTHORIZED);
       case 409:
-        // await SharedPreferencesHelper.removeAll();
         throw ApiException(ApiExceptionType.UNAUTHORIZED);
       case 403:
         throw ApiException(ApiExceptionType.UNAUTHORIZED);

@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:test_flutter_app/core/constants/system.dart';
 import 'package:test_flutter_app/core/http/api_provider.dart';
 
+///Базовый репо который другие репозиторий наследуеть
 class BaseRepo {
   ApiProvider? httpClient;
 
@@ -27,6 +28,7 @@ class BaseRepo {
     return '${System.BASE_URL}/v2';
   }
 
+  ///генератор для параметр запроса, но в этом проекте я не использовал
   String generateQuery(Map<String, dynamic> params) {
     StringBuffer buffer = StringBuffer("?");
     params.forEach((key, value) {
@@ -35,11 +37,11 @@ class BaseRepo {
     return buffer.toString();
   }
 
+  ///Ручной проверка интернета
   Future<bool> checkConnection() async {
     if (kIsWeb) {
       return true;
     }
-
     try {
       final result = await InternetAddress.lookup('google.com').timeout(
         const Duration(milliseconds: 200),

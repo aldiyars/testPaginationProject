@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:test_flutter_app/core/helpers/navigator_helper.dart';
 import 'package:test_flutter_app/core/widgets/loader.dart';
 
+
+///Для ViewModel тоже был базовый baseViewModel, но пока что не использую
 class BaseVM with ChangeNotifier {
   bool _busy = false;
   bool _loaderOpen = false;
