@@ -65,8 +65,9 @@ class HomeVM extends ChangeNotifier {
 
   ///Загрузка данный из сервер и синхронизация с Hive
   Future<List<User>?> _fetchDate(bool update) async {
+    print('update: $update');
     try {
-      List<User>? response = await _homeRepo!.getUsers(page: _pageNumber + 1, update: true, limit: _limit);
+      List<User>? response = await _homeRepo!.getUsers(page: _pageNumber + 1, update: update, limit: _limit);
       return response;
     } catch (e) {
       _isLoadingProgress = false;
